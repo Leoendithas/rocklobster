@@ -574,10 +574,10 @@ const TOOLTIPS = {
   'anemones':      'A sea anemone is a soft ocean animal with wiggly arms that looks like a flower. It catches food with its tentacles.',
 };
 
-// ─────────────────────────────────────────────
-// ANIMAL DATA
-// ─────────────────────────────────────────────
-const ANIMALS = {
+  // ─────────────────────────────────────────────
+  // ANIMAL DATA
+  // ─────────────────────────────────────────────
+  const ANIMALS = {
 
 
   // ─────────────────────────────────────────────
@@ -626,7 +626,11 @@ const ANIMALS = {
         'It sheds its <span class="tooltip-word" data-tip="exoskeleton">exoskeleton</span> as it grows bigger in size.',
         'The Ornate Rock Lobster is sometimes found trapped in fishing nets.'
       ]
-    }
+    },
+
+    videos: [
+      { title: 'Ornate Rock Lobster in the Wild', url: 'https://www.youtube.com/embed/BsK0mx7DQOY' }
+    ]
   },
 
   // ─────────────────────────────────────────────
@@ -674,7 +678,11 @@ const ANIMALS = {
         'It wraps a leaf around its eggs after laying them. This is to prevent the eggs from drying up. If the eggs dry up, they will not hatch.',
         'The Singapore Green Tree Snail may soon no longer exist. It is therefore important for us to conserve our forests and not collect their shells.'
       ]
-    }
+    },
+
+    videos: [
+      { title: 'Green Tree Snail in its Natural Habitat', url: 'https://www.youtube.com/embed/CkS3fqPz5vA' }
+    ]
   },
 
   // ─────────────────────────────────────────────
@@ -723,7 +731,12 @@ const ANIMALS = {
         'If you want to take a photograph of the turtle, do not use a flash as it can scare them off. This may cause the Hawksbill Turtle to abandon its nest without laying any eggs.',
         'The Hawksbill Turtle has an interesting way of walking as compared to the Green Turtle. It leaves tracks in the sand when it walks.'
       ]
-    }
+    },
+
+    videos: [
+      { title: 'Hawksbill Turtle Swimming', url: 'https://www.youtube.com/embed/AZ0XNj6VcSA' },
+      { title: 'Hawksbill Turtle Documentary', url: 'https://www.youtube.com/embed/6sfGnHpvIXM' }
+    ]
   }
 };
 
@@ -902,11 +915,29 @@ function renderBonus(animal) {
     </div>
   ` : '';
 
+  // Render videos if available
+  const videosHtml = animal.videos && animal.videos.length ? `
+    <div class="videos-section" style="margin-top: 36px;">
+      <h3 style="font-family: 'Fraunces', serif; font-size: 24px; color: var(--ocean); margin-bottom: 16px;">🎥 Watch Videos</h3>
+      ${animal.videos.map(v => `
+        <div class="video-wrap">
+          <iframe 
+            src="${v.url}" 
+            title="${v.title}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      `).join('')}
+    </div>
+  ` : '';
+
   el.innerHTML = `
     <h2 class="section-title">🌟 Bonus</h2>
     <div class="section-divider"></div>
     ${facts}
     ${learnMoreHtml}
+    ${videosHtml}
   `;
 }
 
