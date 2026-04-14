@@ -370,6 +370,37 @@
     text-align: center;
   }
 
+  /* ── CONSERVATION IMAGE CARDS ── */
+  .conservation-img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .conservation-img-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+    background: white;
+    display: flex;
+    flex-direction: column;
+  }
+  .conservation-img-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display: block;
+  }
+  .conservation-img-cap {
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    text-align: center;
+    background: white;
+  }
+
   /* ── VIDEO ── */
   .video-wrap {
     position: relative;
@@ -549,30 +580,35 @@
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-// TOOLTIP DICTIONARY
-// ─────────────────────────────────────────────
-const TOOLTIPS = {
-  'mangroves':     'Coastal forests with roots that grow in shallow, salty water. Many animals live in them.',
-  'seagrasses':    'Underwater plants that grow in shallow waters at the beach. They provide food and shelter for animals.',
-  'algae':         'Simple plant-like living things that grow in water. They are often green or brown. Many sea animals eat them.',
-  'exoskeleton':   'A hard outer shell that protects an animal\'s body — The skeleton is on the outside instead of inside their body.',
-  'antennae':      'Long, thin feelers on an animal\'s head used to touch, smell, and taste.',
-  'abdomen':       'The lower or back part of an animal\'s body. In hermit crabs, it is inside a shell.',
-  'pincers':       'The claws of the crabs and lobsters. Pincers are used to grab food and defend themselves.',
-  'coral reefs':   'Found underwater. Corals are made by other small animals. They are home to hundreds of sea creatures.',
-  'habitat':       'The home of animals. Where animals live.',
-  'endangered':    'An animal is may disappear forever if we do not protect it.',
-  'extinct':       'When an animal is not around in the world anymore.',
-  'scutes':        'Bony plates on the outer layer of a turtle\'s shell. It is like an armour.',
-  'fungi':         'Mushrooms and moulds that break down plants or animals. They are not plants or animals.',
-  'spines':        'Sharp, pointed bones on an animal\'s body. It is for protection against animals.',
-  'flutes':        'Deep parts curved into a surface — like the clam\'s shell.',
-  'omnivore':      'Eats plants and animals.',
-  'low tide':      'When the seawater is low. More sand is seen. Many animals move around at this time.',
-  'scavenger':     'An animal that eats dead plants or animals. It helps to recycle nutrients into the environment.',
-  'anemones':      'A sea anemone is a soft ocean animal with wiggly arms that looks like a flower. It catches food with its tentacles.',
-};
+  // ─────────────────────────────────────────────
+  // TOOLTIP DICTIONARY
+  // ─────────────────────────────────────────────
+  const TOOLTIPS = {
+    'mangroves':     'Coastal forests with roots that grow in shallow, salty water. Many animals live in them.',
+    'seagrasses':    'Underwater plants that grow in shallow waters at the beach. They provide food and shelter for animals.',
+    'algae':         'Simple plant-like living things that grow in water. They are often green or brown. Many sea animals eat them.',
+    'exoskeleton':   'A hard outer shell that protects an animal\'s body — The skeleton is on the outside instead of inside their body.',
+    'antennae':      'Long, thin feelers on an animal\'s head used to touch, smell, and taste.',
+    'abdomen':       'The lower or back part of an animal\'s body. In hermit crabs, it is inside a shell.',
+    'pincers':       'The claws of the crabs and lobsters. Pincers are used to grab food and defend themselves.',
+    'coral reefs':   'Found underwater. Corals are made by other small animals. They are home to hundreds of sea creatures.',
+    'habitat':       'The home of animals. Where animals live.',
+    'endangered':    'An animal is may disappear forever if we do not protect it.',
+    'extinct':       'When an animal is not around in the world anymore.',
+    'scutes':        'Bony plates on the outer layer of a turtle\'s shell. It is like an armour.',
+    'fungi':         'Mushrooms and moulds that break down plants or animals. They are not plants or animals.',
+    'spines':        'Sharp, pointed bones on an animal\'s body. It is for protection against animals.',
+    'flutes':        'Deep parts curved into a surface — like the clam\'s shell.',
+    'omnivore':      'Eats plants and animals.',
+    'low tide':      'When the seawater is low. More sand is seen. Many animals move around at this time.',
+    'scavenger':     'An animal that eats dead plants or animals. It helps to recycle nutrients into the environment.',
+    'anemones':      'A sea anemone is a soft ocean animal with wiggly arms that looks like a flower. It catches food with its tentacles.',
+    'conservation':  'Protecting nature and animals so they can live safely and not disappear.',
+    'pollution':     'When dirty or harmful things get into the air, water, or land and hurt nature.',
+    'sustainable':   'Doing things in a way that does not harm nature, so it can last for a long time.',
+    'poaching':      'Catching or hunting animals illegally when it is not allowed.',
+    'marine park':   'A special area in the ocean that is protected so sea animals and plants can live safely.',
+  };
 
   // ─────────────────────────────────────────────
   // ANIMAL DATA
@@ -596,21 +632,27 @@ const TOOLTIPS = {
           icon: '👀',
           title: 'What does it look like?',
           content: [
-            {type: 'text', text: 'The Ornate Rock Lobster is a large lobster that is 25–30 cm long. It can grow up to 50 cm! <br><br> It has a long <span class="tooltip-word" data-tip="abdomen">abdomen</span> with a thick tail and large <span class="tooltip-word" data-tip="pincers">pincers</span>. It also has two pairs of very long, thick <span class="tooltip-word" data-tip="antennae">antennae</span>. <br><br> The Ornate Rock Lobster comes in many colours.'}
+            {type: 'text', text: 'The Ornate Rock Lobster is a large lobster that is 25–30 cm long. It can grow up to 50 cm! <br>'},
+            {type: 'image', url: 'images/ornate rock lobster.jpg', cap: 'Ornate Rock Lobster'},
+            {type: 'text', text: 'It has a long <span class="tooltip-word" data-tip="abdomen">abdomen</span> with a thick tail and large <span class="tooltip-word" data-tip="pincers">pincers</span>. It also has two pairs of very long, thick <span class="tooltip-word" data-tip="antennae">antennae</span>. <br><br> The Ornate Rock Lobster comes in many colours.'},
+            {type: 'image', url: 'images/ornate rock lobster 3.jpg', cap: 'Ornate Rock Lobster in the wild'}
           ]
         },
         {
           icon: '🏖️',
           title: 'Where does it live?',
           content: [
-            {type: 'text', text: 'It can be found on rocky bottoms, <span class="tooltip-word" data-tip="coral reefs">coral reefs</span>, shallow waters, and near the end of rivers. <br><br> In Singapore, it can be seen at our southern offshore islands, such as Sisters\' Islands Marine Park, St John\'s Island and Pulau Seringat.'}
+            {type: 'text', text: 'It can be found on rocky bottoms, <span class="tooltip-word" data-tip="coral reefs">coral reefs</span>, shallow waters, and near the end of rivers. <br>'},
+            {type: 'image',  url: 'images/coral reef.jpg', cap: 'Coral Reef'},
+            {type: 'text', text: 'In Singapore, it can be seen at our southern offshore islands, such as Sisters\' Islands Marine Park, St John\'s Island and Pulau Seringat.'}
           ]
         },
         {
           icon: '🦐',
           title: 'What does it eat?',
           content: [
-            {type: 'text', text: 'It eats at night, feasting on many different shellfish such as shrimp, crabs, worms and sea urchins.'}
+            {type: 'text', text: 'It eats at night, feasting on many different shellfish such as shrimp, crabs, worms and sea urchins.'},
+            {type: 'image',  url: 'images/shellfish.jpeg'}
           ]
         }
       ],
@@ -630,7 +672,25 @@ const TOOLTIPS = {
 
     videos: [
       { title: 'Ornate Rock Lobster in the Wild', url: 'https://www.youtube.com/embed/BsK0mx7DQOY' }
-    ]
+    ],
+
+    conservation: {
+      status: 'safe',
+      statusText: 'Doing Okay',
+      content: [
+        {type: 'text', text: 'The Ornate Rock Lobster is doing okay around the world. There are still many of them living in the ocean. <br><br> '},
+        {type: 'text', text: 'In Singapore, they can be found at places like Sisters\' Islands <span class="tooltip-word" data-tip="marine park">Marine Park</span>. This is a special protected area where sea animals can live safely. <br><br>'},
+        {type: 'image', url: 'images/sisters_islands_marine_park.jpg', cap: 'Sisters Island'},
+        {type: 'text', text: 'Sometimes lobsters get caught in fishing nets by accident. This is why it is important to have <span class="tooltip-word" data-tip="conservation">conservation</span> areas to protect them.'},
+        {type: 'image', url: 'images/ornate rock lobster net.jpg', cap: 'Lobster in fishing net'}
+      ],
+      text: 'The Ornate Rock Lobster is doing okay around the world. There are still many of them living in the ocean. <br><br> In Singapore, they can be found at places like Sisters\' Islands <span class="tooltip-word" data-tip="marine park">Marine Park</span>. This is a special protected area where sea animals can live safely. <br><br> Sometimes lobsters get caught in fishing nets by accident. This is why it is important to have <span class="tooltip-word" data-tip="conservation">conservation</span> areas to protect them.',
+      whatYouCanDo: [
+        { icon: '🦞', text: 'Do not collect or disturb lobsters if you see them at the beach.' },
+        { icon: '🌊', text: 'Help keep our beaches and ocean clean from rubbish and litter.' },
+        { icon: '🐟', text: 'Choose <span class="tooltip-word" data-tip="sustainable">sustainable</span> seafood that is caught in ways that protect ocean animals.' }
+      ]
+    }
   },
 
   // ─────────────────────────────────────────────
@@ -682,7 +742,19 @@ const TOOLTIPS = {
 
     videos: [
       { title: 'Green Tree Snail in its Natural Habitat', url: 'https://www.youtube.com/embed/CkS3fqPz5vA' }
-    ]
+    ],
+
+    conservation: {
+      image: 'images/singapore_green_tree_snail.jpg',
+      status: 'warning',
+      statusText: 'Needs Protection',
+      text: 'The Singapore Green Tree Snail is very special because it only lives in Singapore and nowhere else in the world! <br><br> This means we must take extra care to protect it. If it disappears from Singapore, it will be <span class="tooltip-word" data-tip="extinct">extinct</span> forever. <br><br> Their homes in the forest are being protected so they have a safe place to live. It is against the law to collect their shells.',
+      whatYouCanDo: [
+        { icon: '🐌', text: 'Do not collect or take home any snail shells you find in the forest.' },
+        { icon: '🌳', text: 'Stay on walking paths when visiting nature parks to protect their forest home.' },
+        { icon: '📷', text: 'Take photos of snails instead of collecting them.' }
+      ]
+    }
   },
 
   // ─────────────────────────────────────────────
@@ -736,7 +808,19 @@ const TOOLTIPS = {
     videos: [
       { title: 'Hawksbill Turtle Swimming', url: 'https://www.youtube.com/embed/AZ0XNj6VcSA' },
       { title: 'Hawksbill Turtle Documentary', url: 'https://www.youtube.com/embed/6sfGnHpvIXM' }
-    ]
+    ],
+
+    conservation: {
+      status: 'danger',
+      statusText: 'Critically Endangered',
+      text: 'The Hawksbill Turtle is <span class="tooltip-word" data-tip="endangered">endangered</span>. This means there are very few of them left in the world, and they could become <span class="tooltip-word" data-tip="extinct">extinct</span> if we do not protect them. <br><br> They are in danger because of <span class="tooltip-word" data-tip="pollution">pollution</span> in the ocean, people catching them illegally (<span class="tooltip-word" data-tip="poaching">poaching</span>), and loss of their beach nesting areas. <br><br> In Singapore, NParks helps protect turtle nests and moves eggs to safe places where they can hatch. Baby turtles are then released back to the ocean.',
+      whatYouCanDo: [
+        { icon: '🐢', text: 'Do not disturb turtles or their nests if you see them on the beach.' },
+        { icon: '📸', text: 'Keep your distance and do not use camera flash when taking photos of turtles.' },
+        { icon: '🌊', text: 'Reduce plastic use to keep our oceans clean and safe for sea animals.' },
+        { icon: '📞', text: 'Call NParks at 1800-471-7300 if you spot a turtle on the beach.' }
+      ]
+    }
   }
 };
 
@@ -932,12 +1016,85 @@ function renderBonus(animal) {
     </div>
   ` : '';
 
+  // Render conservation section if available
+  let conservationHtml = '';
+  if (animal.conservation) {
+    const statusClass = animal.conservation.status === 'danger' ? 'status-danger' : 
+                        animal.conservation.status === 'warning' ? 'status-warn' : 'status-ok';
+    const statusIcon = animal.conservation.status === 'danger' ? '🔴' : 
+                       animal.conservation.status === 'warning' ? '🟡' : '🟢';
+    
+    const whatYouCanDoItems = animal.conservation.whatYouCanDo.map(item => `
+      <li><span>${item.icon}</span> <span>${item.text}</span></li>
+    `).join('');
+    
+    // Conservation image (if available)
+    const conservationImageHtml = animal.conservation.image ? `
+      <div class="fullwidth-img-wrap" style="margin-bottom: 20px;">
+        <img src="${animal.conservation.image}" alt="${animal.title} conservation" onerror="this.parentElement.style.display='none'">
+      </div>
+    ` : '';
+    
+    // Render conservation content (supporting mixed text and images)
+    let conservationContentHtml = '';
+    if (animal.conservation.content && Array.isArray(animal.conservation.content)) {
+      // Group consecutive images into a grid
+      let i = 0;
+      while (i < animal.conservation.content.length) {
+        const item = animal.conservation.content[i];
+        
+        if (item.type === 'text') {
+          conservationContentHtml += `<p>${item.text}</p>`;
+          i++;
+        } else if (item.type === 'image') {
+          // Collect consecutive images
+          const images = [];
+          while (i < animal.conservation.content.length && animal.conservation.content[i].type === 'image') {
+            images.push(animal.conservation.content[i]);
+            i++;
+          }
+          // Render images as cards in a grid
+          const imagesHtml = images.map(img => `
+            <div class="conservation-img-card">
+              <img src="${img.url}" alt="${img.cap || ''}" onerror="this.parentElement.style.display='none'">
+              ${img.cap ? `<div class="conservation-img-cap">${img.cap}</div>` : ''}
+            </div>
+          `).join('');
+          conservationContentHtml += `<div class="conservation-img-grid">${imagesHtml}</div>`;
+        } else {
+          i++;
+        }
+      }
+    } else {
+      // Fallback to text field if content array not available
+      conservationContentHtml = `<p>${animal.conservation.text}</p>`;
+    }
+    
+    conservationHtml = `
+      <div class="conservation-section" style="margin-top: 36px;">
+        <h3 style="font-family: 'Fraunces', serif; font-size: 24px; color: var(--ocean); margin-bottom: 16px;">🌿 Conservation</h3>
+        ${conservationImageHtml}
+        <div class="status-badge ${statusClass}">${statusIcon} ${animal.conservation.statusText}</div>
+        <div class="text-block" style="margin-bottom: 20px;">
+          ${conservationContentHtml}
+        </div>
+        <div class="action-box">
+          <h3>💚 What Can You Do?</h3>
+          <ul>
+            ${whatYouCanDoItems}
+          </ul>
+        </div>
+      </div>
+    `;
+  }
+
   el.innerHTML = `
-    <h2 class="section-title">🌟 Bonus</h2>
+    <h2 class="section-title">🌟 Did You Know?</h2>
     <div class="section-divider"></div>
     ${facts}
     ${learnMoreHtml}
     ${videosHtml}
+    ${conservationHtml}
   `;
 }
 
