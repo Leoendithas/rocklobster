@@ -453,6 +453,43 @@
 
   .learn-more a { color: #1A4A6B; font-weight: 600; }
 
+  /* ── INNER TABS (Meet panel) ── */
+  .inner-tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 24px;
+  }
+  .inner-tabs::-webkit-scrollbar { display: none; }
+
+  .inner-tab-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 11px 16px 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .inner-tab-btn:hover { color: var(--ocean); }
+
+  .inner-tab-btn.active {
+    color: var(--ocean);
+    border-bottom-color: var(--ocean);
+    font-weight: 600;
+  }
+
+  .meet-inner-panel { display: none; animation: fadeUp 0.2s ease; }
+  .meet-inner-panel.active { display: block; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 580px) {
     .hero { padding: 28px 16px 48px; }
@@ -460,6 +497,7 @@
     .tab-btn { padding: 15px 13px 13px; font-size: 13px; }
     .fact-num { font-size: 22px; min-width: 26px; }
     .animal-btn { font-size: 13px; padding: 9px 16px; }
+    .inner-tab-btn { font-size: 13px; padding: 10px 12px 8px; }
   }
 </style>
 </head>
@@ -467,12 +505,12 @@
 
 <!-- HERO -->
 <div class="hero" id="hero" style="background: var(--ocean);">
-  <h1 id="heroTitle">Orange-Striped <em>Hermit Crab</em></h1>
-  <p class="hero-subtitle" id="heroSubtitle">The shell-borrowing shore wanderer</p>
+  <h1 id="heroTitle">Ornate <em>Rock Lobster</em></h1>
+  <p class="hero-subtitle" id="heroSubtitle">The spiny night hunter of Singapore's reefs</p>
   <div class="hero-image-wrap">
     <div class="hero-img-box" id="heroImgBox">
       <img id="heroImg" src="" alt="" onload="this.classList.add('loaded')" onerror="this.style.display='none'">
-      <span class="emoji" id="heroEmoji">🦀</span>
+      <span class="emoji" id="heroEmoji">🦞</span>
     </div>
   </div>
   <svg class="hero-wave" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -484,9 +522,9 @@
 <div class="selector-bar" id="selectorBar">
   <span class="selector-label">Choose an Animal</span>
   <div class="animal-buttons">
-    <button class="animal-btn active" onclick="switchAnimal('hermit')">🦀 Orange-Striped Hermit Crab</button>
-    <button class="animal-btn" onclick="switchAnimal('flower')">🦀 Flower Crab</button>
-    <button class="animal-btn" onclick="switchAnimal('clam')">🐚 Fluted Giant Clam</button>
+    <button class="animal-btn active" onclick="switchAnimal('lobster')">🦞 Ornate Rock Lobster</button>
+    <button class="animal-btn" onclick="switchAnimal('snail')">🐌 Singapore Green Tree Snail</button>
+    <button class="animal-btn" onclick="switchAnimal('turtle')">🐢 Hawksbill Turtle</button>
   </div>
 </div>
 
@@ -541,13 +579,16 @@ const TOOLTIPS = {
 // ─────────────────────────────────────────────
 const ANIMALS = {
 
-  hermit: {
-    title: 'Orange-Striped <em>Hermit Crab</em>',
-    subtitle: 'The shell-borrowing shore wanderer',
-    emoji: '🦀',
-    heroImage: 'images/image1b.png',
-    heroBg: '#1A4A6B',
-    tabColor: '#E8633A',
+
+  // ─────────────────────────────────────────────
+  lobster: {
+    title: 'Ornate <em>Rock Lobster</em>',
+    subtitle: 'The spiny night hunter of Singapore\'s reefs',
+    emoji: '🦞',
+    heroImage: '',
+    heroBg: '#5D1A1A',
+    tabColor: '#C0392B',
+    learnMore: 'To find out more about Sisters\' Islands Marine Park, home to the Ornate Rock Lobster, visit <a href="https://www.nparks.gov.sg/sistersislandsmarinepark" target="_blank">www.nparks.gov.sg/sistersislandsmarinepark</a>.',
 
     meet: {
       cards: [
@@ -555,106 +596,48 @@ const ANIMALS = {
           icon: '👀',
           title: 'What does it look like?',
           content: [
-            {type: 'text', text: 'The Orange-Striped Hermit Crab has two claws called <span class="tooltip-word" data-tip="pincers">pincers</span>. The pincers are orange with white bumps.'},
-            {type: 'image', url: 'images/image1a.jpg', cap: 'Hermit crab pincers'},
-            {type: 'text', text: ' <br> Its four walking legs are brown with orange stripes. <br> <br> It carries its home — usually an empty snail shell — everywhere it goes. This is to protect themselves. It uses four very short legs to hold tightly to the shell.'},
-            {type: 'image', url: 'images/Orange Crab Shell.jpg', cap: 'Hermit crab carrying its shell'},
+            {type: 'text', text: 'The Ornate Rock Lobster is a large lobster that is 25–30 cm long. It can grow up to 50 cm! <br><br> It has a long <span class="tooltip-word" data-tip="abdomen">abdomen</span> with a thick tail and large <span class="tooltip-word" data-tip="pincers">pincers</span>. It also has two pairs of very long, thick <span class="tooltip-word" data-tip="antennae">antennae</span>. <br><br> The Ornate Rock Lobster comes in many colours.'}
           ]
         },
         {
           icon: '🏖️',
           title: 'Where does it live?',
           content: [
-          {type: 'text', text: 'It can be found in <span class="tooltip-word" data-tip="mangroves">mangroves</span>, shores, and among <span class="tooltip-word" data-tip="seagrasses">seagrasses</span>.'}, 
-          {type: 'image', url: 'images/Mangroves.jpg', cap: 'A mangrove'},
-        
-          {type: 'text', text: '<br> In Singapore, you can find Orange-Striped Hermit Crabs on the sand bars of Chek Jawa Wetlands and the seagrass flats of Changi Beach.'},
-          {type: 'image', url: 'images/seagrass.jpg', cap: 'Seagrass in the ocean'},
-           ]
+            {type: 'text', text: 'It can be found on rocky bottoms, <span class="tooltip-word" data-tip="coral reefs">coral reefs</span>, shallow waters, and near the end of rivers. <br><br> In Singapore, it can be seen at our southern offshore islands, such as Sisters\' Islands Marine Park, St John\'s Island and Pulau Seringat.'}
+          ]
         },
         {
           icon: '🦐',
           title: 'What does it eat?',
           content: [
-          {type: 'text', text: 'It is an <span class="tooltip-word" data-tip="omnivore">omnivore</span> and <span class="tooltip-word" data-tip="scavenger">scavenger</span>. It eats almost anything it finds, such as <span class="tooltip-word" data-tip="algae">algae</span> to dead animals! This makes it an important part of the environment, helping to clean up and recycle nutrients.'},
-          {type: 'image', url: 'images/image1d.jpg', cap: 'Algae'},
+            {type: 'text', text: 'It eats at night, feasting on many different shellfish such as shrimp, crabs, worms and sea urchins.'}
           ]
         }
       ],
-      images: [
-        {url: 'images/image1b.jpg'},
-        {url: 'images/image1a.jpg'},
-        {url: 'images/image1d.jpg'}
-      ]
+      images: []
     },
 
     didyouknow: {
       facts: [
-        'The Orange-Striped Hermit Crab is mostly active at <span class="tooltip-word" data-tip="low tide">low tide</span>.',
-        'As it grows in size, it changes to a bigger shell. <br> <br> When it is in danger, it hides deep inside its shell for protection.',
-        { 
-          type: 'mixed', 
-          content: [
-            { type: 'text', text: 'It can fight with other hermit crabs over a shell that it wants.' },
-            { type: 'image', url: 'images/image1b.jpg', caption: 'Hermit crab competing for a shell' }
-          ]
-        },
-        'It can walk forward, backwards and diagonally!',
-        { 
-          type: 'mixed', 
-          content: [
-            { type: 'text', text: 'It recycles dead matter as a <span class="tooltip-word" data-tip="scavenger">scavenger</span>. <br> <br> It is also food for fishes, birds and other crabs.' },
-            { type: 'image', url: 'images/Bird eat hermit crab.jpg', caption: 'A bird eating a hermit crab' }
-          ]
-        },
-        'Do not collect shells from beaches! <br> <br> Hermit crabs need them for protection. Without their shells, they will eventually dry out and die.'
+        'The Ornate Rock Lobster is active at night. They are rarely seen during the day.',
+        'It is extremely shy. It will hide in a hole when it sees other animals or humans.',
+        'The larger pair of <span class="tooltip-word" data-tip="antennae">antennae</span> is covered in <span class="tooltip-word" data-tip="spines">spines</span>. This pair of antennae can fold backwards. Its sharp spines can cause injury to other animals and humans.',
+        'It can swim backwards quickly by flapping its tail.',
+        'It sheds its <span class="tooltip-word" data-tip="exoskeleton">exoskeleton</span> as it grows bigger in size.',
+        'The Ornate Rock Lobster is sometimes found trapped in fishing nets.'
       ]
-    },
-
-    funfacts: {
-      text: `The hermit crab is not actually a true crab! It is more closely related to lobsters and shrimps. There are about 500 different kinds of hermit crab in the world.
-
-Hermit crabs have stalked eyes that can move in different directions, and two pairs of <span class="tooltip-word" data-tip="antennae">antennae</span> — one for feeling and touching, and one for smelling and tasting.
-
-Their soft <span class="tooltip-word" data-tip="abdomen">abdomen</span> is specially shaped to curl tightly inside a spiral snail shell. They grip the inside using tiny hooked legs at the end of their body.
-
-Some hermit crabs even carry sea <span class="tooltip-word" data-tip="anemones">anemones</span> on their shells for extra protection — the anemone gets a free ride, and the hermit crab gets a bodyguard!`,
-      images: [
-        {url: 'images/image1e.png', cap: 'Hermit crab in its natural habitat'}
-      ],
-      video: 'k1P24jvrF8g'
-    },
-
-    conservation: {
-      status: 'not_assessed',
-      content: [
-        { type: 'text', text: 'Hermit crabs are not endangered, but they face real threats. Their shells are being taken from beaches by people as souvenirs. With no shells, hermit crabs cannot grow and are left exposed to danger.' },
-        { 
-          type: 'mixed', 
-          items: [
-            { type: 'text', text: 'Coastal development and pollution also destroy the <span class="tooltip-word" data-tip="mangroves">mangroves</span> and shores where hermit crabs live. Plastic rubbish in the ocean is a growing threat — some hermit crabs have been found trying to use plastic bottle caps as shells, which can trap and injure them.' },
-            { type: 'image', url: 'images/Hermit crab plastic cap.jpg', caption: 'Hermit crab using a plastic bottle cap as a shell' }
-          ]
-        },
-        { type: 'text', text: 'The pet trade removes millions of hermit crabs from the wild every year. Since they cannot breed in captivity, all pet hermit crabs come from the wild.' }
-      ],
-      actions: [
-        '🐚 Never take shells from the beach — a hermit crab might need them!',
-        '🛍️ Reduce plastic waste — bring your own bag and water bottle.',
-        '📣 Tell your family and friends about the threats hermit crabs face.',
-      ],
-      learnMore: 'To find out more about Sisters\' Islands Marine Park, home to the Hermit Crab, visit <a href="https://www.nparks.gov.sg/sistersislandsmarinepark" target="_blank">www.nparks.gov.sg/sistersislandsmarinepark</a>'
     }
   },
 
   // ─────────────────────────────────────────────
-  flower: {
-    title: '<em>Flower</em> Crab',
-    subtitle: 'The colourful swimmer of Singapore\'s shores',
-    emoji: '🦀',
-    heroImage: 'images/image2b.png',
-    heroBg: '#1B5E7B',
-    tabColor: '#2196A6',
+  snail: {
+    title: 'Singapore <em>Green Tree Snail</em>',
+    subtitle: 'A forest gem found only in Singapore',
+    emoji: '🐌',
+    heroImage: '',
+    heroBg: '#1A4A1A',
+    tabColor: '#27AE60',
+    learnMore: 'To find out more about how the National Parks Board (NParks) is helping to conserve the Singapore Green Tree Snail, visit <a href="https://go.gov.sg/singapore-green-tree-snail" target="_blank">go.gov.sg/singapore-green-tree-snail</a>.',
 
     meet: {
       cards: [
@@ -662,99 +645,47 @@ Some hermit crabs even carry sea <span class="tooltip-word" data-tip="anemones">
           icon: '👀',
           title: 'What does it look like?',
           content: [
-            {type: 'text', text: 'A Flower Crab has eight walking legs and two <span class="tooltip-word" data-tip="pincers">pincers</span>. Its last pair of legs is shaped like paddles, which helps it swim well!'},
-            {type: 'image', url: 'images/flower crab.jpg', cap: 'Flower crab with paddle-shaped legs'},
-            {type: 'text', text: '<br> <br> Male and female Flower Crabs look very different. Males have blue markings and interesting patterns. Females have dull green and brown bodies. Male pincers can be two to three times longer than the length of their bodies!'},
-            {type: 'image', url: 'images/male and female flower crab.jpg', cap: 'Male and female flower crab showing different colours'}
+            {type: 'text', text: 'The Singapore Green Tree Snail has a green shell and pale body. It is about 3 cm to 5 cm long.'}
           ]
         },
         {
-          icon: '🏖️',
+          icon: '🌿',
           title: 'Where does it live?',
           content: [
-            {type: 'text', text: 'It can be found on many of Singapore\'s shores. It likes to live in shallow waters with muddy or sandy floors. Smaller flower crabs hide in <span class="tooltip-word" data-tip="seagrasses">seagrasses</span> and seaweed. <br> <br> It cannot survive for long out of water. When it is in danger or gets trapped in the water, it buries itself in sand or mud.'},
-            {type: 'image', url: 'images/flower crab bury itself.jpg', cap: 'Flower crab burying itself in sand for protection'}
+            {type: 'text', text: 'It lives in shrubs or trees. It does not come down to the ground often. <br><br> It can be found in the undisturbed forest areas at certain parts of the Central Catchment Nature Reserve and some of our offshore islands. <br><br> It exists only in Singapore and nowhere else in the world!'}
           ]
         },
         {
-          icon: '🦐',
+          icon: '🍃',
           title: 'What does it eat?',
           content: [
-            {type: 'text', text: 'It mostly eats slow-moving creatures found at the bottom of the sea, such as snails, clams and worms. It may also eat fish, shrimp and smaller crabs.'},
-            {type: 'image', url: 'images/flower crab eating.jpg', cap: 'Flower crab eating prey'},
-            {type: 'text', text: '<br> <br> The flower crab itself can be eaten and is used in dishes such as Chilli Crab and Crab Bee Hoon.'},
-            {type: 'image', url: 'images/chilli crab.JPG', cap: 'Chilli Crab - a popular Singapore dish made with flower crab'}
+            {type: 'text', text: 'It eats <span class="tooltip-word" data-tip="fungi">fungi</span>, <span class="tooltip-word" data-tip="algae">algae</span> and other material on the leaves and bark of trees. It can also eat algae on solid surfaces such as walls and floors.'}
           ]
         }
       ],
-      images: [
-        {url: 'images/image2b.png', cap: 'Male Flower Crab with blue markings'},
-        {url: 'images/image2c.png', cap: 'Flower Crab on sandy bottom'},
-        {url: 'images/image2d.png', cap: 'Flower Crab eating fish'}
-      ]
+      images: []
     },
 
     didyouknow: {
       facts: [
-        'It is not easy to spot a Flower Crab! When it is in danger, it buries itself in sand or mud.',
-        'When Flower Crabs are in danger, they spread out their <span class="tooltip-word" data-tip="pincers">pincers</span>. The red tips serve as a warning to other animals.',
-        'Their hard shells covered in <span class="tooltip-word" data-tip="spines">spines</span> also protect them from predators.',
-        { 
-          type: 'mixed', 
-          content: [
-            { type: 'text', text: 'The Flower Crab can only make babies right after the female takes off her <span class="tooltip-word" data-tip="exoskeleton">exoskeleton</span>, before her new one hardens.' },
-            { type: 'image', url: 'images/flower crab takes off skeleton.jpg', caption: 'Flower crab shedding its exoskeleton' }
-          ]
-        },
-        { 
-          type: 'mixed', 
-          content: [
-            { type: 'text', text: 'The male Flower Crab is often seen holding onto the female — he is waiting for the chance to make babies and keep other males away!' },
-            { type: 'image', url: 'images/flower crab mating.jpg', caption: 'Male flower crab holding onto female' }
-          ]
-        },
-        'The Flower Crab can be eaten and is used in dishes like Chilli Crab and Crab Bee Hoon.'
+        'A Singapore Green Tree Snail has both male and female parts, but still needs another snail to make babies.',
+        'When the Singapore Green Tree Snail senses danger, it pulls itself back into its hard shell.',
+        'It has a green shell, so it hides itself very well in the forest. To find one, you need very good eyesight and a lot of patience!',
+        'It wraps a leaf around its eggs after laying them. This is to prevent the eggs from drying up. If the eggs dry up, they will not hatch.',
+        'The Singapore Green Tree Snail may soon no longer exist. It is therefore important for us to conserve our forests and not collect their shells.'
       ]
-    },
-
-    funfacts: {
-      text: `The Flower Crab gets its name from the beautiful flower-like patterns on its shell, especially on the male.
-
-Its paddle-shaped back legs make it a fast swimmer. Most crabs can only walk, but the Flower Crab can swim through the water easily.
-
-The Flower Crab belongs to a group called swimming crabs. Its scientific name is <em>Portunus pelagicus</em>. It is one of the most important crabs in Asia. It is widely eaten in Singapore and in ASEAN.
-
-Like all crabs, it drops off its <span class="tooltip-word" data-tip="exoskeleton">exoskeleton</span> as it grows bigger. Right after that, its new shell is soft and it is very easy to be attacked.`,
-      images: [
-        {url: 'images/image2e.png', cap: 'Flower Crab showing paddle legs'}
-      ],
-      video: 'HDN0TprZexs'
-    },
-
-    conservation: {
-      status: 'not_assessed',
-      text: `The Flower Crab is not currently classified as <span class="tooltip-word" data-tip="endangered">endangered</span>, but populations in some areas are under pressure from overfishing, as it is a popular seafood item.
-
-<span class="tooltip-word" data-tip="habitat">Habitat</span> loss is also a concern — the shallow sandy and muddy shores and <span class="tooltip-word" data-tip="seagrasses">seagrass</span> beds it depends on are being lost to coastal development.
-
-Singapore has taken steps to protect its marine <span class="tooltip-word" data-tip="habitat">habitats</span>, including through Sisters' Islands Marine Park.`,
-      actions: [
-        '🦀 Do not collect crabs or disturb them on the shore.',
-        '🌊 Help keep our beaches and waterways clean from litter.',
-        '🐟 Choose sustainably sourced seafood where possible.',
-      ],
-      learnMore: 'To find out more about how NParks is helping to conserve Singapore\'s endangered crab species, visit <a href="https://go.gov.sg/endangered-singapore-crab" target="_blank">go.gov.sg/endangered-singapore-crab</a>'
     }
   },
 
   // ─────────────────────────────────────────────
-  clam: {
-    title: 'Fluted <em>Giant Clam</em>',
-    subtitle: 'Singapore\'s gentle giant of the reef',
-    emoji: '🐚',
-    heroImage: 'images/image3b.png',
-    heroBg: '#1A3D5C',
-    tabColor: '#0077B6',
+  turtle: {
+    title: '<em>Hawksbill</em> Turtle',
+    subtitle: 'Singapore\'s endangered reef guardian',
+    emoji: '🐢',
+    heroImage: '',
+    heroBg: '#0A3D4A',
+    tabColor: '#16A085',
+    learnMore: 'To find out more about how the National Parks Board (NParks) is helping to conserve our turtles, visit <a href="https://go.gov.sg/nhct" target="_blank">go.gov.sg/nhct</a>. <br><br> To find out more about what to do when you encounter a Hawksbill Turtle, visit <a href="https://go.gov.sg/turtle-advisory" target="_blank">go.gov.sg/turtle-advisory</a>. <br><br> If you spot a Hawksbill Turtle on the beach, call NParks at 1800-471-7300.',
 
     meet: {
       cards: [
@@ -762,71 +693,36 @@ Singapore has taken steps to protect its marine <span class="tooltip-word" data-
           icon: '👀',
           title: 'What does it look like?',
           content: [
-            {type: 'text', text: 'Fluted Giant Clams come in different colours and patterns. They are 15 to 30 cm long. <br> <br> The shell has two thick halves that open like "lips" with a wavy opening. They do not close completely! The opening always faces the sunlight. <br> <br> When in water, its colourful "lips" open wide. The shell has rows of deep open grooves called <span class="tooltip-word" data-tip="flutes">flutes</span>. It is where it gets its name!'},
-            {type: 'image', url: 'images/fluted giant clam colorful.jpg', cap: 'Fluted Giant Clam showing colorful lips and shell grooves'}
+            {type: 'text', text: 'The Hawksbill Turtle is a sea turtle that has two pairs of scales in front of its eyes. It has a sharp, hooked beak on its head. <br><br> It is 65 to 90 cm long and weighs between 40 and 90 kg. <br><br> The outermost layer of a Hawksbill Turtle\'s shell is made up of <span class="tooltip-word" data-tip="scutes">scutes</span> (bony plates). Its hard, bony shell protects it from danger.'}
           ]
         },
         {
           icon: '🌊',
           title: 'Where does it live?',
           content: [
-            {type: 'text', text: 'The Fluted Giant Clam sticks itself to rocks or broken pieces of <span class="tooltip-word" data-tip="coral reefs">coral</span>. It lives in shallow tropical waters. <br> <br> Due to people collecting it and loss of <span class="tooltip-word" data-tip="habitat">habitat</span>, there are very few Fluted Giant Clams in Singapore and could soon be <span class="tooltip-word" data-tip="extinct">extinct</span> in Singapore.'},
-            {type: 'image', url: 'images/coral reef.jpg', cap: 'Coral reef habitat where giant clams live'}
+            {type: 'text', text: 'Hawksbill Turtles live in <span class="tooltip-word" data-tip="coral reefs">coral reefs</span>. <br><br> Female Hawksbill Turtles come up to shore to lay their eggs on the beach. Their nests can be found at places like Changi Beach Park, East Coast Park and Sisters\' Islands Marine Park.'}
           ]
         },
         {
-          icon: '☀️',
+          icon: '🦐',
           title: 'What does it eat?',
           content: [
-            {type: 'text', text: 'The Fluted Giant Clam gets its food from tiny <span class="tooltip-word" data-tip="algae">algae</span> that live inside its body! The algae uses sunlight to make food and shares this food with the clam. This is why the clam always faces the sun.'},
-            {type: 'image', url: 'images/clam open lips.jpeg', cap: 'Giant clam with lips open to capture sunlight'}
+            {type: 'text', text: 'A Hawksbill Turtle looks for food in <span class="tooltip-word" data-tip="coral reefs">coral reefs</span>. It feeds on other animals such as shellfish.'}
           ]
         }
       ],
-      images: [
-        {url: 'images/image3b.png', cap: 'Fluted Giant Clam with colorful lips'},
-        {url: 'images/image3c.png', cap: 'Giant clam attached to reef rock'},
-        {url: 'images/image3d.png', cap: 'Close-up of fluted shell grooves'}
-      ],
+      images: []
     },
 
     didyouknow: {
       facts: [
-        'The Fluted Giant Clam got its name from the rows of deep open <span class="tooltip-word" data-tip="flutes">flutes</span> on the two halves of its shell.',
-        'It has both male and female reproductive organs — it produces both eggs and sperm!',
-        'Its "lips" are sensitive to light and pull back when a diver swims over it or when it senses danger.',
-        'It has a row of tiny eyespots along the edge of its "lips" to help it detect danger.',
-        'It can squirt a jet of water accurately to scare away animals that want to eat it!',
-        'Fluted Giant Clams provide food and shelter to other sea animals, and help clean the seawater. <br> <br> When they die, their shells become part of the <span class="tooltip-word" data-tip="coral reefs">coral reef</span>.'
+        'There are not many Hawksbill Turtles left around the world. They could soon be <span class="tooltip-word" data-tip="extinct">extinct</span> (no longer exist).',
+        'It is illegal to catch Hawksbill Turtles or collect their eggs.',
+        'The Hawksbill Turtle is a strong swimmer. It can outswim other animals that want to eat it to find safety.',
+        'In Singapore, Monitor Lizards, Long-tailed Macaques and Ghost Crabs feed on their eggs on beaches.',
+        'If you want to take a photograph of the turtle, do not use a flash as it can scare them off. This may cause the Hawksbill Turtle to abandon its nest without laying any eggs.',
+        'The Hawksbill Turtle has an interesting way of walking as compared to the Green Turtle. It leaves tracks in the sand when it walks.'
       ]
-    },
-
-    funfacts: {
-      text: `The Fluted Giant Clam is one of six giant clam species found in Singapore. It is smaller than the famous Giant Clam (<em>Tridacna gigas</em>), which can weigh over 200 kg!
-
-The tiny <span class="tooltip-word" data-tip="algae">algae</span> living inside the clam's body give its colourful lips — blue, green, brown, and purple. Every clam has an interesting pattern just like a fingerprint.
-
-Giant clams can live for over 100 years in the wild. They grow slowly - only a few centimetres per year. <br> <br> This slow growth makes it very hard for populations to recover once they are gone.
-
-The Fluted Giant Clam plays an important role in the coral reef ecosystem. It cleans large amounts of seawater, helping keep the ocean clean and healthy.`,
-      images: [{url: 'images/image3e.png', cap: 'White Shell of Giant Clam'}],
-      video: '55kj4ehTD7I'
-    },
-
-    conservation: {
-      status: 'endangered',
-      text: `Fluted Giant Clams are now <span class="tooltip-word" data-tip="endangered">endangered</span>. This is due to their slow growth and reproduction, and people collecting them for their shells and as food.
-
-In Singapore, the Fluted Giant Clam species are very few and could soon be locally <span class="tooltip-word" data-tip="extinct">extinct</span>.
-
-NParks (the National Parks Board) is working to protect the Fluted Giant Clam through conservation programmes at Sisters' Islands Marine Park. Researchers have been breeding clams in captivity and releasing them back onto our reefs to boost wild populations.`,
-      actions: [
-        '🐚 Never collect shells, living or empty, from the shore.',
-        '🤿 If diving or snorkelling, do not touch or disturb giant clams.',
-        '🌊 Reduce pollution — chemicals and rubbish harm coral reefs where clams live.',
-        '📣 Spread the word — very few people know this animal is endangered right here in Singapore!',
-      ],
-      learnMore: 'To find out more about Sisters\' Islands Marine Park, home to the Fluted Giant Clam, visit <a href="https://www.nparks.gov.sg/sistersislandsmarinepark" target="_blank">www.nparks.gov.sg/sistersislandsmarinepark</a>'
     }
   }
 };
@@ -834,7 +730,7 @@ NParks (the National Parks Board) is working to protect the Fluted Giant Clam th
 // ─────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────
-let currentAnimal = 'hermit';
+let currentAnimal = 'lobster';
 let currentTab = 'meet';
 
 // ─────────────────────────────────────────────
@@ -846,7 +742,7 @@ function switchAnimal(key) {
 
   // Update selector buttons
   document.querySelectorAll('.animal-btn').forEach((b, i) => {
-    const keys = ['hermit','flower','clam'];
+    const keys = ['lobster','snail','turtle'];
     b.classList.toggle('active', keys[i] === key);
   });
 
@@ -905,7 +801,7 @@ function renderTabs() {
 function renderAllPanels() {
   const a = ANIMALS[currentAnimal];
   renderMeet(a.meet);
-  renderBonus(a.didyouknow);
+  renderBonus(a);
 
   // Reactivate current tab
   document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
@@ -920,9 +816,7 @@ function renderAllPanels() {
 function renderMeet(data) {
   const el = document.getElementById('panel-meet');
 
-  // Helper function to render card content (handles both 'text' and 'content' array formats)
   function renderCardContent(c) {
-    // New format: content array
     if (c.content && Array.isArray(c.content)) {
       return c.content.map(item => {
         if (item.type === 'text') {
@@ -938,7 +832,6 @@ function renderMeet(data) {
         return '';
       }).join('');
     }
-    // Old format: single text string
     return `<p>${c.text}</p>`;
   }
 
@@ -949,27 +842,14 @@ function renderMeet(data) {
     </div>
   `).join('');
 
-  const imgs = data.images.length ? `
+  const imgs = data.images && data.images.length ? `
     <div class="img-grid">
       ${data.images.map(i => `
         <div class="img-card">
-          <img src="${i.url}" alt="${i.cap}" onerror="this.parentElement.style.display='none'">
-          <div class="img-card-cap">${i.cap}</div>
+          <img src="${i.url}" alt="${i.cap || ''}" onerror="this.parentElement.style.display='none'">
+          ${i.cap ? `<div class="img-card-cap">${i.cap}</div>` : ''}
         </div>
       `).join('')}
-    </div>
-  ` : '';
-
-  const vid = data.video ? `
-    <div class="video-wrap">
-      <iframe
-        src="https://www.youtube.com/embed/${data.video}"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
     </div>
   ` : '';
 
@@ -978,17 +858,16 @@ function renderMeet(data) {
     <div class="section-divider"></div>
     <div class="info-grid">${cards}</div>
     ${imgs}
-    ${vid}
   `;
 }
 
-function renderBonus(data) {
+function renderBonus(animal) {
   const el = document.getElementById('panel-bonus');
-  
+  const data = animal.didyouknow;
+
   const facts = data.facts.map((f, i) => {
     let content = '';
-    
-    // Handle new mixed format (object with type: 'mixed')
+
     if (typeof f === 'object' && f.type === 'mixed' && Array.isArray(f.content)) {
       content = f.content.map(item => {
         if (item.type === 'text') {
@@ -1004,10 +883,9 @@ function renderBonus(data) {
         return '';
       }).join('');
     } else {
-      // Handle old string format
       content = f;
     }
-    
+
     return `
       <div class="fact-card">
         <div class="fact-num">${String(i+1).padStart(2,'0')}</div>
@@ -1016,10 +894,19 @@ function renderBonus(data) {
     `;
   }).join('');
 
+  const learnMore = animal.learnMore || (animal.conservation && animal.conservation.learnMore) || '';
+  const learnMoreHtml = learnMore ? `
+    <div class="learn-more" style="margin-top: 28px;">
+      <strong>🔍 To find out more...</strong><br><br>
+      ${learnMore}
+    </div>
+  ` : '';
+
   el.innerHTML = `
     <h2 class="section-title">🌟 Bonus</h2>
     <div class="section-divider"></div>
     ${facts}
+    ${learnMoreHtml}
   `;
 }
 
