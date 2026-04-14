@@ -48,9 +48,6 @@
     background: #1A4A6B;
     padding: 20px 16px 16px;
     text-align: center;
-    position: relative;
-    z-index: 10;
-    border-bottom: 4px solid #1A4A6B;
   }
 
   .selector-label {
@@ -73,28 +70,30 @@
   }
 
   .animal-btn {
-    background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.25);
-    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.28);
+    border: 2px solid rgba(255,255,255,0.80);
+    color: white;
     font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 28px;
     border-radius: 100px;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
+    letter-spacing: 0.3px;
   }
 
   .animal-btn:hover {
-    background: rgba(255,255,255,0.22);
-    color: white;
+    background: rgba(255,255,255,0.30);
+    border-color: white;
   }
 
   .animal-btn.active {
-    background: white;
-    border-color: white;
-    color: var(--ocean);
+    background: var(--coral);
+    border-color: var(--coral);
+    color: white;
+    box-shadow: 0 4px 14px rgba(232,99,58,0.5);
   }
 
   /* ── HERO ── */
@@ -466,16 +465,6 @@
 </head>
 <body>
 
-<!-- ANIMAL SELECTOR -->
-<div class="selector-bar" id="selectorBar">
-  <span class="selector-label">Choose an Animal</span>
-  <div class="animal-buttons">
-    <button class="animal-btn active" onclick="switchAnimal('hermit')">🦀 Orange-Striped Hermit Crab</button>
-    <button class="animal-btn" onclick="switchAnimal('flower')">🦀 Flower Crab</button>
-    <button class="animal-btn" onclick="switchAnimal('clam')">🐚 Fluted Giant Clam</button>
-  </div>
-</div>
-
 <!-- HERO -->
 <div class="hero" id="hero" style="background: var(--ocean);">
   <h1 id="heroTitle">Orange-Striped <em>Hermit Crab</em></h1>
@@ -491,22 +480,28 @@
   </svg>
 </div>
 
+<!-- ANIMAL SELECTOR -->
+<div class="selector-bar" id="selectorBar">
+  <span class="selector-label">Choose an Animal</span>
+  <div class="animal-buttons">
+    <button class="animal-btn active" onclick="switchAnimal('hermit')">🦀 Orange-Striped Hermit Crab</button>
+    <button class="animal-btn" onclick="switchAnimal('flower')">🦀 Flower Crab</button>
+    <button class="animal-btn" onclick="switchAnimal('clam')">🐚 Fluted Giant Clam</button>
+  </div>
+</div>
+
 <!-- TABS -->
 <div class="tabs-container">
   <div class="tabs" id="tabsBar">
     <button class="tab-btn active" onclick="switchTab('meet')">👀 Meet the Animal</button>
-    <button class="tab-btn" onclick="switchTab('didyouknow')">💡 Did You Know?</button>
-    <button class="tab-btn" onclick="switchTab('funfacts')">🌟 More Facts</button>
-    <button class="tab-btn" onclick="switchTab('conservation')">🌍 Conservation</button>
+    <button class="tab-btn" onclick="switchTab('bonus')">🌟 Bonus</button>
   </div>
 </div>
 
 <!-- CONTENT -->
 <div class="content-wrapper">
   <div id="panel-meet" class="section-panel active"></div>
-  <div id="panel-didyouknow" class="section-panel"></div>
-  <div id="panel-funfacts" class="section-panel"></div>
-  <div id="panel-conservation" class="section-panel"></div>
+  <div id="panel-bonus" class="section-panel"></div>
 </div>
 
 <!-- TOOLTIP -->
@@ -877,8 +872,7 @@ function switchAnimal(key) {
   renderTabs();
   renderAllPanels();
 
-  // Scroll to top smoothly
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
 }
 
 // ─────────────────────────────────────────────
@@ -893,10 +887,8 @@ function switchTab(tab) {
 
 function renderTabs() {
   const tabs = [
-    { id: 'meet',         label: '👀 Meet the Animal' },
-    { id: 'didyouknow',  label: '💡 Did You Know?' },
-    { id: 'funfacts',    label: '🌟 More Facts' },
-    { id: 'conservation',label: '🌍 Conservation' },
+    { id: 'meet',  label: '👀 Meet the Animal' },
+    { id: 'bonus', label: '🌟 Bonus' },
   ];
 
   const bar = document.getElementById('tabsBar');
@@ -913,9 +905,7 @@ function renderTabs() {
 function renderAllPanels() {
   const a = ANIMALS[currentAnimal];
   renderMeet(a.meet);
-  renderDidYouKnow(a.didyouknow);
-  renderFunFacts(a.funfacts);
-  renderConservation(a.conservation);
+  renderBonus(a.didyouknow);
 
   // Reactivate current tab
   document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
@@ -992,8 +982,8 @@ function renderMeet(data) {
   `;
 }
 
-function renderDidYouKnow(data) {
-  const el = document.getElementById('panel-didyouknow');
+function renderBonus(data) {
+  const el = document.getElementById('panel-bonus');
   
   const facts = data.facts.map((f, i) => {
     let content = '';
@@ -1027,115 +1017,9 @@ function renderDidYouKnow(data) {
   }).join('');
 
   el.innerHTML = `
-    <h2 class="section-title">💡 Did You Know?</h2>
+    <h2 class="section-title">🌟 Bonus</h2>
     <div class="section-divider"></div>
     ${facts}
-  `;
-}
-
-function renderFunFacts(data) {
-  const el = document.getElementById('panel-funfacts');
-
-  // Use full-width layout for single images, grid for multiple
-  const imgs = data.images && data.images.length ? (
-    data.images.length === 1 ? `
-      <div class="fullwidth-img-wrap">
-        <img src="${data.images[0].url}" alt="${data.images[0].cap}" onerror="this.parentElement.style.display='none'">
-        <div class="fullwidth-img-cap">${data.images[0].cap}</div>
-      </div>
-    ` : `
-      <div class="img-grid">
-        ${data.images.map(i => `
-          <div class="img-card">
-            <img src="${i.url}" alt="${i.cap}" onerror="this.parentElement.style.display='none'">
-            <div class="img-card-cap">${i.cap}</div>
-          </div>
-        `).join('')}
-      </div>
-    `
-  ) : '';
-
-  const vid = data.video ? `
-    <div class="video-wrap">
-      <iframe
-        src="https://www.youtube.com/embed/${data.video}"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
-    </div>
-  ` : '';
-
-  const paragraphs = data.text.split('\n\n').filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
-
-  el.innerHTML = `
-    <h2 class="section-title">🌟 More Facts</h2>
-    <div class="section-divider"></div>
-    ${imgs}
-    <div class="text-block">${paragraphs}</div>
-    ${vid}
-  `;
-}
-
-function renderConservation(data) {
-  const el = document.getElementById('panel-conservation');
-
-  const statusMap = {
-    'not_assessed': { cls: 'status-warn',   icon: '⚠️', label: 'Not Officially Assessed (IUCN)' },
-    'least_concern':{ cls: 'status-ok',     icon: '✅', label: 'Least Concern' },
-    'endangered':   { cls: 'status-danger', icon: '🔴', label: 'Endangered' },
-    'vulnerable':   { cls: 'status-warn',   icon: '🟠', label: 'Vulnerable' },
-  };
-
-  const s = statusMap[data.status] || statusMap['not_assessed'];
-
-  // Handle new content array format
-  let paragraphs = '';
-  if (data.content && Array.isArray(data.content)) {
-    paragraphs = data.content.map(item => {
-      if (item.type === 'text') {
-        return `<p>${item.text}</p>`;
-      } else if (item.type === 'mixed' && Array.isArray(item.items)) {
-        const mixedContent = item.items.map(subItem => {
-          if (subItem.type === 'text') {
-            return subItem.text;
-          } else if (subItem.type === 'image') {
-            return `
-              <div class="inline-img-wrap" style="margin:16px 0;">
-                <img src="${subItem.url}" alt="${subItem.caption || ''}" onerror="this.parentElement.style.display='none'">
-                ${subItem.caption ? `<div class="inline-img-cap">${subItem.caption}</div>` : ''}
-              </div>
-            `;
-          }
-          return '';
-        }).join('');
-        return `<p>${mixedContent}</p>`;
-      }
-      return '';
-    }).join('');
-  } else if (data.text) {
-    // Handle old string format
-    paragraphs = data.text.split('\n\n').filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
-  }
-
-  const actions = data.actions.map(a => `<li>${a}</li>`).join('');
-
-  const learnMore = data.learnMore ? `
-    <div class="learn-more">🔗 ${data.learnMore}</div>
-  ` : '';
-
-  el.innerHTML = `
-    <h2 class="section-title">🌍 Conservation</h2>
-    <div class="section-divider"></div>
-    <div class="status-badge ${s.cls}">${s.icon} Conservation Status: ${s.label}</div>
-    <div class="text-block">${paragraphs}</div>
-    <div class="action-box">
-      <h3>💚 What Can You Do?</h3>
-      <ul>${actions}</ul>
-    </div>
-    ${learnMore}
   `;
 }
 
